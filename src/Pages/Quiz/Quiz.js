@@ -5,7 +5,12 @@ const Quiz = (name,questions,setScore,score,setQuestions) => {
     const[currQues,setCurrQues] = useState(0);
     useEffect(()=> {
         console.log(questions);
+        setOptions(questions
+            && handleShuffle(
+                [questions[currQues]?.correct_answer,
+                    ...questions[currQues]?.incorrect_answers]));
     },[questions]);
+
     const handleShuffle = (option) => {
         return option.sort(() => Math.random() - 0.5);
     }
