@@ -3,4 +3,4 @@ const Result =() => {
 
 };
 
-export default Quiz;
+export default Result;
