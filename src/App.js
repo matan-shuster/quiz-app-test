@@ -18,6 +18,9 @@ function App() {
                 category && `&category=${category}`
             }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
         );
+
+        console.log("abcd",data);
+        console.log("abcdef",data.results)
         setQuestions(data.results);
     };
   return (
@@ -33,13 +36,13 @@ function App() {
             />
         </Route>
         <Route exact path="/quiz">
-            <Quiz
+            {questions&&<Quiz
                 name={name}
                 questions={questions}
                 setScore={setScore}
                 score={score}
                 setQuestions={setQuestions}
-            />
+            />}
         </Route>
         <Route exact path="/result" >
             <Result/>
