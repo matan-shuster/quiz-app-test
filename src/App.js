@@ -20,7 +20,7 @@ function App() {
         );
 
         console.log("abcd",data);
-        console.log("abcdef",data.results)
+        console.log("abcdef",data.results);
         setQuestions(data.results);
     };
   return (
@@ -54,6 +54,6 @@ function App() {
       </BrowserRouter>
 
 );
-};
+}
 
 export default App;
