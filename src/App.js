@@ -23,7 +23,6 @@ function App() {
     console.log("abcd", data);
     console.log("abcdef", data.results);
     setQuestions(data.results);
-    console.log("testquestions", questions);
   };
   return (
     <BrowserRouter>
