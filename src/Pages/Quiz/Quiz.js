@@ -1,23 +1,20 @@
-import {useEffect,useState} from "react";
+import { useState } from "react";
 
-const Quiz = (name,questions,setScore,score,setQuestions) => {
-    const[options,setOptions] = useState();
-    const[currQues,setCurrQues] = useState(0);
+const handleShuffle = (options) => {
+  return options.sort(() => Math.random() - 0.5);
+};
 
-    useEffect((questions)=> {
-        console.log(questions);
-        if(!questions) return;
-        console.log("abcdsadfaf",questions);
-        setOptions(questions
-            && handleShuffle(
-                [questions[currQues]?.correct_answer,
-                    ...questions[currQues]?.incorrect_answers]));
-    },[questions]);
-
-    const handleShuffle = (option) => {
-        return option.sort(() => Math.random() - 0.5);
-    }
-    return <div> Quiz</div>;
+const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
+  const [currQues, setCurrQues] = useState(0);
+  const options = questions
+    ? handleShuffle([
+        questions[currQues]?.correct_answer,
+        ...questions[currQues]?.incorrect_answers,
+      ])
+    : [];
+  console.log("options", options);
+  console.log("questions", questions);
+  return <div> Quiz</div>;
 };
 
 export default Quiz;

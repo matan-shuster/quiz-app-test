@@ -8,29 +8,25 @@ import { getAnalytics } from "firebase/analytics";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-
 // Your web app's Firebase configuration
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
+  apiKey: "AIzaSyBzpbVMVoTizabjBjdFsmhhM5Zb__lo3JQ",
 
-    apiKey: "AIzaSyBzpbVMVoTizabjBjdFsmhhM5Zb__lo3JQ",
+  authDomain: "quiz-app-2d96a.firebaseapp.com",
 
-    authDomain: "quiz-app-2d96a.firebaseapp.com",
+  projectId: "quiz-app-2d96a",
 
-    projectId: "quiz-app-2d96a",
+  storageBucket: "quiz-app-2d96a.appspot.com",
 
-    storageBucket: "quiz-app-2d96a.appspot.com",
+  messagingSenderId: "490024422009",
 
-    messagingSenderId: "490024422009",
+  appId: "1:490024422009:web:5911bd7ded0de2ccf522a8",
 
-    appId: "1:490024422009:web:5911bd7ded0de2ccf522a8",
-
-    measurementId: "G-QEYDS30VMX"
-
+  measurementId: "G-QEYDS30VMX",
 };
-
 
 // Initialize Firebase
 

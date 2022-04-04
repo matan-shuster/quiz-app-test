@@ -1,20 +1,19 @@
-*{
-    margin : 0 ;
-    padding : 0 ;
-    box-sizing: border-box;
-    scrollbar-width: thin;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
 }
 
 a {
-    text-decoration: inherit;
-    color: inherit;
+  text-decoration: inherit;
+  color: inherit;
 }
 
-.App{
-    min-height: 98.5vh;
-    border: 8px solid #f1f1f1;
-    margin: 5px;
-    padding: 5px;
-    background-size:cover;
+.App {
+  min-height: 98.5vh;
+  border: 8px solid #f1f1f1;
+  margin: 5px;
+  padding: 5px;
+  background-size: cover;
 }
