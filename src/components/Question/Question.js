@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
 const Question = ({
   currQues,
   setCurrQues,
@@ -29,7 +28,6 @@ const Question = ({
         questions[currQues]?.correct_answer,
         ...questions[currQues]?.incorrect_answers,
       ]);
-
       setOptions(options);
     }
   }, [currQues]);
@@ -71,11 +69,9 @@ const Question = ({
       .replace(/&quot;/g, '"')
       .replace(/&#039;/g, "'");
   };
-
   return (
     <div className="question">
       <h1>Question {currQues + 1} :</h1>
-
       <div className="singleQuestion">
         <h2>{entitiesHtml(questions[currQues].question)}</h2>
         <div className="options">
@@ -90,7 +86,7 @@ const Question = ({
                 onClick={() => handleCheck(i)}
                 disabled={selected !== -1}
               >
-                {i}
+                {entitiesHtml(i)}
               </button>
             ))}
         </div>
@@ -112,7 +108,7 @@ const Question = ({
             style={{ width: 185 }}
             onClick={handleNext}
           >
-            {currQues > 9 ? "Submit" : "Next Question"}
+            {currQues >= 9 ? "Submit" : "Next Question"}
           </Button>
         </div>
       </div>
