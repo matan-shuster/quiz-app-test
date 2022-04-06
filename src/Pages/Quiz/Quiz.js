@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CircularProgress } from "@material-ui/core";
 import "./quiz.css";
 import "../../components/Question/Question.js";
 import Question from "../../components/Question/Question";
-
+import { LinearProgressBar } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
 const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
   const [counter, setCounter] = useState(60);
+  const timerRef = useRef();
 
   useEffect(() => {
-    counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+    if (counter > 0) {
+      timerRef.current = setTimeout(() => {
+        setCounter(counter - 1);
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(timerRef.current);
+    };
   }, [counter]);
 
   useEffect(() => {
@@ -20,15 +29,20 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   return (
     <div className={"quiz"}>
       <span className="subtitle">Welcome to the quiz- {name}</span>
-      <span className="subtitle">
-        You have {counter} seconds to answer the questions{" "}
-      </span>
+
       {questions ? (
         <>
           <div className={"quizInfo"}>
             <span>{questions[currQues].category}</span>
             <span>Score: {score}</span>
           </div>
+          {console.log(LinearProgressBar.styles)}
+          <LinearProgressBar
+            barStyle="negative"
+            size="large"
+            max={60}
+            value={counter}
+          />
           <Question
             currQues={currQues}
             setCurrQues={setCurrQues}
