@@ -8,7 +8,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  align_items: center;
+  align-items: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
 

@@ -12,8 +12,7 @@ a {
 
 .App {
   min-height: 98.5vh;
-  border: 8px solid #f1f1f1;
-  margin: 5px;
   padding: 5px;
   background-size: cover;
+  background-color: #99cbb0;
 }

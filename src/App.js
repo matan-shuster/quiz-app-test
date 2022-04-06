@@ -12,21 +12,23 @@ function App() {
   const [name, setName] = useState("");
   const [questions, setQuestions] = useState();
   const [score, setScore] = useState(0);
+  const updateQuestions = (questions) => {
+    setQuestions(questions);
+  };
 
   const fetchQuestions = async (category = "", difficulty = "") => {
     const { data } = await axios.get(
-      `https://opentdb.com/api.php?amount=10${
-        category && `&category=${category}`
-      }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
+      `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
     );
 
     console.log("abcd", data);
     console.log("abcdef", data.results);
     setQuestions(data.results);
   };
+
   return (
     <BrowserRouter>
-      <div className="App" style={{ backgroundImage: "url(./a.png" }}>
+      <div className="App">
         <Header />
         <Switch>
           <Route exact path="/">
@@ -43,12 +45,12 @@ function App() {
                 questions={questions}
                 setScore={setScore}
                 score={score}
-                setQuestions={setQuestions}
+                setQuestions={updateQuestions}
               />
             )}
           </Route>
           <Route exact path="/result">
-            <Result />
+            <Result name={name} score={score} />
           </Route>
         </Switch>
       </div>

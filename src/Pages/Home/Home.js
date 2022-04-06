@@ -22,6 +22,7 @@ const Home = ({ name, setName, fetchQuestions }) => {
       history.push("/quiz");
     }
   };
+
   return (
     <div className="content">
       <div className="settings">

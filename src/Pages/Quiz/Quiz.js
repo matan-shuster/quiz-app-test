@@ -3,19 +3,15 @@ import { CircularProgress } from "@material-ui/core";
 import "./quiz.css";
 import "../../components/Question/Question.js";
 import Question from "../../components/Question/Question";
-const handleShuffle = (options) => {
-  return options.sort(() => Math.random() - 0.5);
-};
 
 const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
-  const options = questions
-    ? handleShuffle([
-        questions[currQues]?.correct_answer,
-        ...questions[currQues]?.incorrect_answers,
-      ])
-    : [];
-  console.log("options", options);
+  // const options = questions
+  //   ? handleShuffle([
+  //       questions[currQues]?.correct_answer,
+  //       ...questions[currQues]?.incorrect_answers,
+  //     ])
+  //   : [];
   console.log("questions", questions);
   return (
     <div className={"quiz"}>
@@ -30,7 +26,6 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
             currQues={currQues}
             setCurrQues={setCurrQues}
             questions={questions}
-            options={options}
             correct={questions[currQues]?.correct_answer}
             score={score}
             setScore={setScore}
