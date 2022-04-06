@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import "./Result.css";
-
+import party from "party-js";
 const Result = ({ name, score }) => {
   const history = useHistory();
   useEffect(() => {
@@ -13,6 +13,7 @@ const Result = ({ name, score }) => {
 
   return (
     <div className="result">
+      <h1>Congrats {name}, your score is </h1>
       <span className="title">Final Score : {score}</span>
       <Button
         variant="contained"

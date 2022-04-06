@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Button } from "@material-ui/core";
 import "./quiz.css";
 import "../../components/Question/Question.js";
 import Question from "../../components/Question/Question";
@@ -9,7 +9,14 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
   const [counter, setCounter] = useState(60);
   const timerRef = useRef();
-
+  const friend = () => {
+    const { random } = Math.random() * 100;
+    if (random > 50) {
+      return "I'm not really sure but I think it might be ";
+    } else {
+      return "I'm not really sure but I think it might be2 ";
+    }
+  };
   useEffect(() => {
     if (counter > 0) {
       timerRef.current = setTimeout(() => {
@@ -29,20 +36,31 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   return (
     <div className={"quiz"}>
       <span className="subtitle">Welcome to the quiz- {name}</span>
-
+      <span className="friend">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          style={{ width: 185 }}
+          onClick={friend}
+        >
+          Phone a friend
+        </Button>
+      </span>
       {questions ? (
         <>
           <div className={"quizInfo"}>
             <span>{questions[currQues].category}</span>
             <span>Score: {score}</span>
           </div>
-          {console.log(LinearProgressBar.styles)}
           <LinearProgressBar
+            className={"progress-bar"}
             barStyle="negative"
             size="large"
             max={60}
             value={counter}
           />
+
           <Question
             currQues={currQues}
             setCurrQues={setCurrQues}
@@ -51,6 +69,7 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
             score={score}
             setScore={setScore}
             setQuestions={setQuestions}
+            counter={counter}
           />
         </>
       ) : (

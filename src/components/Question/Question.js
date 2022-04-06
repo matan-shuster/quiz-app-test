@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import party from "party-js";
 const Question = ({
   currQues,
   setCurrQues,
@@ -11,6 +12,7 @@ const Question = ({
   setScore,
   score,
   setQuestions,
+  counter,
 }) => {
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
@@ -42,13 +44,18 @@ const Question = ({
 
   const handleCheck = (i) => {
     setSelected(i);
-    if (i === correct) setScore(score + 1);
+    if (i === correct)
+      setScore(score + 300 * counter),
+        party.confetti(document.body, {
+          count: party.variation.range(0, 100),
+          size: party.variation.range(0.6, 1.4),
+        });
+
     setError("");
   };
 
   const handleNext = () => {
     if (currQues > 8) {
-      debugger;
       history.push("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);

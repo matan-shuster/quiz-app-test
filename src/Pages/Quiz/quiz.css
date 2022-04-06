@@ -21,6 +21,6 @@
 }
 
 .progress-bar{
-color: #380202;
-
+  max-width: 50%;
 }
+
