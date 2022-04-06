@@ -50,7 +50,6 @@ const Question = ({
 
   const handleNext = () => {
     if (currQues > 8) {
-      debugger;
       history.push("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);
