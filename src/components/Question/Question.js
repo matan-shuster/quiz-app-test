@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
+import party from "party-js";
 const Question = ({
   currQues,
   setCurrQues,
@@ -12,6 +12,7 @@ const Question = ({
   setScore,
   score,
   setQuestions,
+  counter,
 }) => {
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
@@ -29,7 +30,6 @@ const Question = ({
         questions[currQues]?.correct_answer,
         ...questions[currQues]?.incorrect_answers,
       ]);
-
       setOptions(options);
     }
   }, [currQues]);
@@ -44,7 +44,13 @@ const Question = ({
 
   const handleCheck = (i) => {
     setSelected(i);
-    if (i === correct) setScore(score + 1);
+    if (i === correct)
+      setScore(score + 300 * counter),
+        party.confetti(document.body, {
+          count: party.variation.range(0, 100),
+          size: party.variation.range(0.6, 1.4),
+        });
+
     setError("");
   };
 
@@ -70,11 +76,9 @@ const Question = ({
       .replace(/&quot;/g, '"')
       .replace(/&#039;/g, "'");
   };
-
   return (
     <div className="question">
       <h1>Question {currQues + 1} :</h1>
-
       <div className="singleQuestion">
         <h2>{entitiesHtml(questions[currQues].question)}</h2>
         <div className="options">
@@ -89,7 +93,7 @@ const Question = ({
                 onClick={() => handleCheck(i)}
                 disabled={selected !== -1}
               >
-                {i}
+                {entitiesHtml(i)}
               </button>
             ))}
         </div>
@@ -111,7 +115,7 @@ const Question = ({
             style={{ width: 185 }}
             onClick={handleNext}
           >
-            {currQues > 9 ? "Submit" : "Next Question"}
+            {currQues >= 9 ? "Submit" : "Next Question"}
           </Button>
         </div>
       </div>

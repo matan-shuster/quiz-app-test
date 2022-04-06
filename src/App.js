@@ -30,6 +30,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
+
         <Switch>
           <Route exact path="/">
             <Home

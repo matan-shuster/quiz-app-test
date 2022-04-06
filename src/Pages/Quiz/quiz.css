@@ -19,3 +19,8 @@
   text-transform: uppercase;
   margin: 10px;
 }
+
+.progress-bar{
+  max-width: 50%;
+}
+
