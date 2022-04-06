@@ -63,12 +63,21 @@ const Question = ({
     setQuestions();
   };
 
+  const entitiesHtml = (string) => {
+    return String(string)
+      .replace(/&amp;/g, "&")
+      .replace(/&gt;/g, ">")
+      .replace(/&lt;/g, "<")
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'");
+  };
+
   return (
     <div className="question">
       <h1>Question {currQues + 1} :</h1>
 
       <div className="singleQuestion">
-        <h2>{questions[currQues].question}</h2>
+        <h2>{entitiesHtml(questions[currQues].question)}</h2>
         <div className="options">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {options &&
