@@ -17,8 +17,7 @@ const Question = ({
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
   };
-
-  console.log(currQues);
+  party.resolvableShapes["monday"] = `<img src="monday.png"/>`;
 
   const [selected, setSelected] = useState(-1);
   const [error, setError] = useState("");
@@ -47,6 +46,7 @@ const Question = ({
     if (i === correct)
       setScore(score + 300 * counter),
         party.confetti(document.body, {
+          shapes: ["monday"],
           count: party.variation.range(0, 100),
           size: party.variation.range(0.6, 1.4),
         });
@@ -68,6 +68,13 @@ const Question = ({
     setQuestions();
   };
 
+  useEffect(() => {
+    if (counter == 0) {
+      setSelected(-1);
+      setCurrQues(currQues + 1);
+    }
+  }, [counter]);
+
   const entitiesHtml = (string) => {
     return String(string)
       .replace(/&amp;/g, "&")
@@ -76,6 +83,7 @@ const Question = ({
       .replace(/&quot;/g, '"')
       .replace(/&#039;/g, "'");
   };
+
   return (
     <div className="question">
       <h1>Question {currQues + 1} :</h1>

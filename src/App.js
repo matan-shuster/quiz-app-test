@@ -21,8 +21,6 @@ function App() {
       `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
     );
 
-    console.log("abcd", data);
-    console.log("abcdef", data.results);
     setQuestions(data.results);
   };
 

@@ -32,7 +32,6 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
     setCounter(60);
   }, [currQues]);
 
-  console.log("questions", questions);
   return (
     <div className={"quiz"}>
       <span className="subtitle">Welcome to the quiz- {name}</span>
@@ -44,7 +43,7 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
           style={{ width: 185 }}
           onClick={friend}
         >
-          Phone a friend
+          {friend}
         </Button>
       </span>
       {questions ? (
