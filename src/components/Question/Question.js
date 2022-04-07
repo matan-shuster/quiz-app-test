@@ -137,10 +137,10 @@ const Question = ({
         <div className="options">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {options &&
-            options.map((i) => (
+            options.map((option) => (
               <button
                 className={`singleOption  ${
-                  selected !== -1 ? handleSelect(i) : ""
+                  selected !== -1 ? handleSelect(option) : ""
                 }`}
                 key={option}
                 onClick={() => handleCheck(option)}
@@ -149,7 +149,7 @@ const Question = ({
                   isHidden.find((hOption) => hOption === option)
                 }
               >
-                {entitiesHtml(i)}
+                {entitiesHtml(option)}
               </button>
             ))}
         </div>
