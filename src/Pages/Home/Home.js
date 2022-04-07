@@ -4,21 +4,6 @@ import Categories from "../../Data/categories.js";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import { getDatabase, ref, child, get } from "firebase/database";
-//
-// const dbRef = ref(getDatabase());
-//
-// get(child(dbRef, "leaderboard"))
-//   .then((snapshot) => {
-//     if (snapshot.exists()) {
-//       console.log(snapshot.val());
-//     } else {
-//       console.log("No data available ");
-//     }
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
 
 const Home = ({ name, setName, fetchQuestions }) => {
   const [category, setCategory] = useState("");

@@ -1,9 +1,15 @@
-import { Button } from "@material-ui/core";
+import { Button, Popover, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import party from "party-js";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 const Question = ({
   currQues,
   setCurrQues,
@@ -13,14 +19,34 @@ const Question = ({
   score,
   setQuestions,
   counter,
+  setCounter,
 }) => {
-  const [usedFriend, setUsedFriend] = useState(false);
-  const [friend, setFriend] = useState("call a friend");
-  const [isHidden, setIsHidden] = useState([]);
+  let correctAudio = new Audio("correct.mp3");
+  let incorrectAudio = new Audio("incorrect.mp3");
 
+  const playCorrect = () => {
+    correctAudio.play();
+  };
+  const playIncorrect = () => {
+    incorrectAudio.play();
+  };
+  const [usedFriend, setUsedFriend] = useState(false);
+  const [friend, setFriend] = useState("");
+  const [isHidden, setIsHidden] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [usedTimer, setUsedTimer] = useState(false);
+  const history = useHistory();
+  const [skip, setSkip] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const hiddenHandler = () => {
     const hiddenOptions = [];
-
     for (let i = 0; i < questions.length; i++) {
       if (hiddenOptions.length === 2) {
         break;
@@ -36,8 +62,16 @@ const Question = ({
     setIsHidden(hiddenOptions);
   };
 
+  const skipQuestion = () => {
+    setCurrQues(currQues + 1);
+    setSkip(true);
+  };
+  const resetTimer = () => {
+    setCounter(60);
+    setUsedTimer(true);
+  };
+
   const callFriend = () => {
-    setUsedFriend(true);
     const random = Math.floor(Math.random() * 100);
     if (random < 25) {
       setFriend(
@@ -52,6 +86,7 @@ const Question = ({
           )
       );
     }
+    setUsedFriend(true);
   };
 
   const handleShuffle = (options) => {
@@ -73,29 +108,31 @@ const Question = ({
     }
   }, [currQues]);
 
-  const history = useHistory();
-
   const handleSelect = (i) => {
-    if (selected === i && selected === correct) return "select";
-    else if (selected === i && selected !== correct) return "wrong";
+    if (selected === i && selected === correct) {
+      return "select";
+    } else if (selected === i && selected !== correct) return "wrong";
     else if (i === correct) return "select";
   };
 
   const handleCheck = (i) => {
     setSelected(i);
-    if (i === correct)
+    if (i === correct) {
+      // playCorrect();
       setScore(score + 300 * counter),
         party.confetti(document.body, {
           shapes: ["monday"],
           count: party.variation.range(0, 100),
           size: party.variation.range(0.6, 1.4),
         });
-
-    setError("");
+      setError("");
+    } else {
+      // playIncorrect();
+    }
   };
 
   const handleNext = () => {
-    if (currQues > 8) {
+    if (currQues >= questions.length - 2) {
       history.push("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);
@@ -137,10 +174,10 @@ const Question = ({
         <div className="options">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {options &&
-            options.map((i) => (
+            options.map((option) => (
               <button
                 className={`singleOption  ${
-                  selected !== -1 ? handleSelect(i) : ""
+                  selected !== -1 ? handleSelect(option) : ""
                 }`}
                 key={option}
                 onClick={() => handleCheck(option)}
@@ -149,7 +186,7 @@ const Question = ({
                   isHidden.find((hOption) => hOption === option)
                 }
               >
-                {entitiesHtml(i)}
+                {entitiesHtml(option)}
               </button>
             ))}
         </div>
@@ -172,7 +209,7 @@ const Question = ({
             onClick={handleNext}
             disabled={selected === -1}
           >
-            {currQues >= 9 ? "Submit" : "Next Question"}
+            {currQues >= questions.length - 2 ? "Submit" : "Next Question"}
           </Button>
         </div>
       </div>
@@ -182,19 +219,61 @@ const Question = ({
           color="default"
           size="large"
           style={{ width: 185 }}
-          onClick={() => callFriend()}
-          // disabled={usedFriend}
+          onClick={() => handleClickOpen()}
+          disabled={usedFriend}
         >
-          {friend}
+          Call a friend
         </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Use call a friend?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {friend}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>close</Button>
+            <Button onClick={callFriend} disabled={usedFriend} autoFocus>
+              Call friend
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Button
           variant="contained"
           color="default"
           size="large"
           style={{ width: 185 }}
           onClick={hiddenHandler}
+          disabled={isHidden.length !== 0}
         >
           50/50
+        </Button>
+        <Button
+          variant="contained"
+          color="default"
+          size="large"
+          style={{ width: 185 }}
+          onClick={skipQuestion}
+          disabled={skip}
+        >
+          Skip Question
+        </Button>
+        <Button
+          variant="contained"
+          color="default"
+          size="large"
+          style={{ width: 185 }}
+          onClick={resetTimer}
+          disabled={usedTimer}
+        >
+          reset timer
         </Button>
       </div>
     </div>

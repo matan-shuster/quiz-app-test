@@ -5,7 +5,6 @@ import "../../components/Question/Question.js";
 import Question from "../../components/Question/Question";
 import { LinearProgressBar } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
-import question from "../../components/Question/Question";
 const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
   const [counter, setCounter] = useState(60);
@@ -53,6 +52,7 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
             setScore={setScore}
             setQuestions={setQuestions}
             counter={counter}
+            setCounter={setCounter}
           />
         </>
       ) : (

@@ -1,10 +1,10 @@
-.quiz{
+.quiz {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
-.subtitle{
+.subtitle {
   font-size: 1.5rem;
   border: 1px solid blue;
   box-shadow: 4px 4px 2px blue;
@@ -12,7 +12,7 @@
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
-.quizInfo{
+.quizInfo {
   width: 20%;
   position: relative;
   left: -40%;
@@ -26,9 +26,6 @@
   padding: 5px 10px;
 }
 
-.progress-bar{
+.progress-bar {
   max-width: 50%;
 }
-
-
-

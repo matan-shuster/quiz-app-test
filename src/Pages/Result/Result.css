@@ -1,7 +1,69 @@
 .result {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 60vh;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  text-align: center;
+}
+
+.leaderboard {
+  display : flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  background: #90d4ff;
+  border-radius: 10px;
+  box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
+}
+.leaderboard ol li:nth-child(1) {
+  background: #80d4ff;
+}
+.leaderboard ol li:nth-child(2) {
+  background: #70c9f2;
+}
+.leaderboard ol li:nth-child(3) {
+  background: #60c9f2;
+}
+.leaderboard ol li:nth-child(4) {
+  background: #50c9f2;
+}
+.leaderboard ol li:nth-child(5) {
+  background: #40c9f2;
+}
+.leaderboard ol li:nth-child(6) {
+  background: #30c9f2;
+}
+.leaderboard ol li:nth-child(7) {
+  background: #20c9f2;
+}
+.leaderboard ol li:nth-child(8) {
+  background: #10c9f2;
+}
+.leaderboard ol li:nth-child(9) {
+  background: #05c9f2;
+}
+.leaderboard ol li:nth-child(10) {
+  background: #00c9f2;
+}
+
+.leaderboard ol li:hover:not(:first-child) {
+  box-shadow:  #05a2a2 -6px 0px 7px;
+}
+ol li{
+  padding: 10px;
+}
+
+ol li:hover {
+  transform: scale(1.1);
+}
+.Buttons {
+  position:absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30%;
 }
