@@ -4,6 +4,12 @@ import { useHistory } from "react-router-dom";
 import "./Result.css";
 
 const Result = ({ name, score }) => {
+  const results = JSON.parse(localStorage.getItem("results") || "[]");
+
+  results.push({ score, name });
+
+  localStorage.setItem("results", JSON.stringify(results));
+
   const history = useHistory();
   useEffect(() => {
     if (!name) {
@@ -11,18 +17,15 @@ const Result = ({ name, score }) => {
     }
   }, [name, history]);
 
-  const Push = () =>
-    database
-      .ref("leaderboards")
-      .set({
-        name: name,
-        score: score,
-      })
-      .catch(e);
-
   return (
     <div className="result">
       <span className="title">Final Score : {score}</span>
+      {results.map((result, index) => (
+        <div key={index}>
+          <span>{result.name}</span>
+          <span>{result.score}</span>
+        </div>
+      ))}
       <Button
         variant="contained"
         color="secondary"

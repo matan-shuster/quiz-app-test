@@ -14,6 +14,46 @@ const Question = ({
   setQuestions,
   counter,
 }) => {
+  const [usedFriend, setUsedFriend] = useState(false);
+  const [friend, setFriend] = useState("call a friend");
+  const [isHidden, setIsHidden] = useState([]);
+
+  const hiddenHandler = () => {
+    const hiddenOptions = [];
+
+    for (let i = 0; i < questions.length; i++) {
+      if (hiddenOptions.length === 2) {
+        break;
+      }
+
+      if (options[i] === questions[currQues].correct_answer) {
+        continue;
+      }
+
+      hiddenOptions.push(options[i]);
+    }
+
+    setIsHidden(hiddenOptions);
+  };
+
+  const callFriend = () => {
+    setUsedFriend(true);
+    const random = Math.floor(Math.random() * 100);
+    if (random < 25) {
+      setFriend(
+        "I think the answer might be " +
+          entitiesHtml(questions[currQues].correct_answer)
+      );
+    } else {
+      setFriend(
+        "I think the answer might be " +
+          entitiesHtml(
+            questions[currQues].incorrect_answers[Math.floor(Math.random() * 3)]
+          )
+      );
+    }
+  };
+
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
   };
@@ -81,7 +121,12 @@ const Question = ({
       .replace(/&gt;/g, ">")
       .replace(/&lt;/g, "<")
       .replace(/&quot;/g, '"')
-      .replace(/&#039;/g, "'");
+      .replace(/&#039;/g, "'")
+      .replace(/&#x27;/g, "'")
+      .replace(/&#x2F;/g, "/")
+      .replace(/&Eacute;/g, "É")
+      .replace(/&#960;/g, "Ω")
+      .replace(/&eacute;/g, "é");
   };
 
   return (
@@ -97,9 +142,12 @@ const Question = ({
                 className={`singleOption  ${
                   selected !== -1 ? handleSelect(i) : ""
                 }`}
-                key={i}
-                onClick={() => handleCheck(i)}
-                disabled={selected !== -1}
+                key={option}
+                onClick={() => handleCheck(option)}
+                disabled={
+                  selected !== -1 ||
+                  isHidden.find((hOption) => hOption === option)
+                }
               >
                 {entitiesHtml(i)}
               </button>
@@ -122,10 +170,32 @@ const Question = ({
             size="large"
             style={{ width: 185 }}
             onClick={handleNext}
+            disabled={selected === -1}
           >
             {currQues >= 9 ? "Submit" : "Next Question"}
           </Button>
         </div>
+      </div>
+      <div className={"helpers"}>
+        <Button
+          variant="contained"
+          color="default"
+          size="large"
+          style={{ width: 185 }}
+          onClick={() => callFriend()}
+          // disabled={usedFriend}
+        >
+          {friend}
+        </Button>
+        <Button
+          variant="contained"
+          color="default"
+          size="large"
+          style={{ width: 185 }}
+          onClick={hiddenHandler}
+        >
+          50/50
+        </Button>
       </div>
     </div>
   );

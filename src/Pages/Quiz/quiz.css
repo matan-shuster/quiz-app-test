@@ -13,14 +13,22 @@
 }
 
 .quizInfo{
-  width: 100%;
+  width: 20%;
+  position: relative;
+  left: -40%;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   text-transform: uppercase;
+  flex-direction: column;
   margin: 10px;
+  border: 1px solid blue;
+  box-shadow: 4px 4px 2px blue;
+  padding: 5px 10px;
 }
 
 .progress-bar{
   max-width: 50%;
 }
+
+
 

@@ -5,18 +5,13 @@ import "../../components/Question/Question.js";
 import Question from "../../components/Question/Question";
 import { LinearProgressBar } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
+import question from "../../components/Question/Question";
 const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
   const [counter, setCounter] = useState(60);
+
   const timerRef = useRef();
-  const friend = () => {
-    const { random } = Math.random() * 100;
-    if (random > 50) {
-      return "I'm not really sure but I think it might be ";
-    } else {
-      return "I'm not really sure but I think it might be2 ";
-    }
-  };
+
   useEffect(() => {
     if (counter > 0) {
       timerRef.current = setTimeout(() => {
@@ -35,17 +30,6 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   return (
     <div className={"quiz"}>
       <span className="subtitle">Welcome to the quiz- {name}</span>
-      <span className="friend">
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          style={{ width: 185 }}
-          onClick={friend}
-        >
-          {friend}
-        </Button>
-      </span>
       {questions ? (
         <>
           <div className={"quizInfo"}>
