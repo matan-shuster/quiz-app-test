@@ -65,19 +65,23 @@
   background: #e0f3fe;
 }
 
+.leaderboard ol {
+  list-style: decimal inside none;
+}
+
 .leaderboard ol li{
   padding: 10px;
+  transition: transform 0.05s linear;
 }
+
 
 .leaderboard ol li:hover {
   transform: scale(1.1);
   box-shadow:  #05a2a2 -6px 0px 7px;
 }
 .Buttons {
-  position:absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   text-align: center;
-  margin-top: 30%;
 }

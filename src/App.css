@@ -11,8 +11,9 @@ a {
 }
 
 .App {
-  min-height: 98.5vh;
-  padding: 5px;
   background-size: cover;
-  background-color: #99cbb0;
+  background-color: #8cccff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
