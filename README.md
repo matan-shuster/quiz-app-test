@@ -14,7 +14,7 @@ The following components are used in the application:
 [UseEffect]
 
 
-###libraries used
+### Libraries used
 [React]
 [react-router-dom]
 [react-scripts]
