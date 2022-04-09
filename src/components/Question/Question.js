@@ -21,30 +21,66 @@ const Question = ({
   counter,
   setCounter,
 }) => {
+  /*
+  Set audio to play when correct and incorrect answer
+  monday logo confetti
+   */
   let correctAudio = new Audio("correct.mp3");
   let incorrectAudio = new Audio("incorrect.mp3");
-
   const playCorrect = () => {
     correctAudio.play();
   };
   const playIncorrect = () => {
     incorrectAudio.play();
   };
+  party.resolvableShapes["monday"] = `<img src="monday.png"/>`;
+
   const [usedFriend, setUsedFriend] = useState(false);
   const [friend, setFriend] = useState("");
   const [isHidden, setIsHidden] = useState([]);
   const [open, setOpen] = useState(false);
   const [usedTimer, setUsedTimer] = useState(false);
-  const history = useHistory();
   const [skip, setSkip] = useState(false);
+  const [selected, setSelected] = useState(-1);
+  const [error, setError] = useState("");
+  const [options, setOptions] = useState([]);
+  const history = useHistory();
 
-  const handleClickOpen = () => {
+  /*
+  Handle open and close for dialog prompt for friend
+   */
+  const handleOpenDialog = () => {
+    callFriend();
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
   };
+/*
+  function to call friend. 25% he will provide the correct answer
+ */
+  const callFriend = () => {
+    const random = Math.floor(Math.random() * 100);
+    if (random < 25) {
+      setFriend(
+          "I think the answer might be " +
+          entitiesHtml(questions[currQues].correct_answer)
+      );
+    } else {
+      setFriend(
+          "I think the answer might be " +
+          entitiesHtml(
+              questions[currQues].incorrect_answers[Math.floor(Math.random() * 3)]
+          )
+      );
+    }
+    setUsedFriend(true);
+  };
+
+  /*
+  function to hide options when using 50/50
+   */
   const hiddenHandler = () => {
     const hiddenOptions = [];
     for (let i = 0; i < questions.length; i++) {
@@ -62,42 +98,31 @@ const Question = ({
     setIsHidden(hiddenOptions);
   };
 
+  /*
+  function to move to next question
+   */
   const skipQuestion = () => {
-    setCurrQues(currQues + 1);
+    handleNext()
     setSkip(true);
   };
+  /*
+  function to reset the timer
+   */
   const resetTimer = () => {
     setCounter(60);
     setUsedTimer(true);
   };
 
-  const callFriend = () => {
-    const random = Math.floor(Math.random() * 100);
-    if (random < 25) {
-      setFriend(
-        "I think the answer might be " +
-          entitiesHtml(questions[currQues].correct_answer)
-      );
-    } else {
-      setFriend(
-        "I think the answer might be " +
-          entitiesHtml(
-            questions[currQues].incorrect_answers[Math.floor(Math.random() * 3)]
-          )
-      );
-    }
-    setUsedFriend(true);
-  };
-
+  /*
+  function to shuffle the answer options based on random number
+   */
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
   };
-  party.resolvableShapes["monday"] = `<img src="monday.png"/>`;
 
-  const [selected, setSelected] = useState(-1);
-  const [error, setError] = useState("");
-  const [options, setOptions] = useState([]);
-
+/*
+function to shuffle the answer options everytime the current question changes
+ */
   useEffect(() => {
     if (questions) {
       const options = handleShuffle([
@@ -108,6 +133,9 @@ const Question = ({
     }
   }, [currQues]);
 
+  /*
+  function to handle the selection of an answer and add the relevant CSS
+   */
   const handleSelect = (i) => {
     if (selected === i && selected === correct) {
       return "select";
@@ -115,10 +143,13 @@ const Question = ({
     else if (i === correct) return "select";
   };
 
+  /*
+  function to check if the answer is correct or not
+   */
   const handleCheck = (i) => {
     setSelected(i);
     if (i === correct) {
-      // playCorrect();
+      playCorrect();
       setScore(score + 300 * counter),
         party.confetti(document.body, {
           shapes: ["monday"],
@@ -127,12 +158,20 @@ const Question = ({
         });
       setError("");
     } else {
-      // playIncorrect();
+      playIncorrect();
     }
   };
 
+  /*
+  function to handle the next question and reset the selected answer
+   */
   const handleNext = () => {
-    if (currQues >= questions.length - 2) {
+    if (currQues >= questions.length - 1) {
+      party.confetti(document.body, {
+        shapes: ["monday"],
+        count: 200,
+        size: party.variation.range(0.6, 1.4),
+      });
       history.push("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);
@@ -140,11 +179,17 @@ const Question = ({
     } else setError("Please select an option first");
   };
 
+  /*
+  function to Quit and go back to home page
+   */
   const handleQuit = () => {
     setCurrQues(0);
     setQuestions();
   };
 
+  /*
+  function to check if the timer is 0 and if it is then move to next question
+   */
   useEffect(() => {
     if (counter == 0) {
       setSelected(-1);
@@ -152,6 +197,9 @@ const Question = ({
     }
   }, [counter]);
 
+  /*
+  replace html entities with correct string
+   */
   const entitiesHtml = (string) => {
     return String(string)
       .replace(/&amp;/g, "&")
@@ -209,7 +257,7 @@ const Question = ({
             onClick={handleNext}
             disabled={selected === -1}
           >
-            {currQues >= questions.length - 2 ? "Submit" : "Next Question"}
+            {currQues >= questions.length - 1 ? "Submit" : "Next Question"}
           </Button>
         </div>
       </div>
@@ -219,19 +267,19 @@ const Question = ({
           color="default"
           size="large"
           style={{ width: 185 }}
-          onClick={() => handleClickOpen()}
+          onClick={() => handleOpenDialog()}
           disabled={usedFriend}
         >
           Call a friend
         </Button>
         <Dialog
           open={open}
-          onClose={handleClose}
+          onClose={handleCloseDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Use call a friend?"}
+            {"Bestie"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -239,10 +287,7 @@ const Question = ({
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>close</Button>
-            <Button onClick={callFriend} disabled={usedFriend} autoFocus>
-              Call friend
-            </Button>
+            <Button onClick={handleCloseDialog}>close</Button>
           </DialogActions>
         </Dialog>
         <Button

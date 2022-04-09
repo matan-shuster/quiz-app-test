@@ -11,6 +11,10 @@ const Home = ({ name, setName, fetchQuestions }) => {
   const [error, setError] = useState(false);
   const history = useHistory();
 
+  /*
+  Check that the user has entered a category, name and difficulty.
+  If all has been entered, call questions from API and then redirect to the questions page.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (category === "" || difficulty === "" || name === "") {

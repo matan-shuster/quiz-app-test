@@ -7,10 +7,12 @@ import { LinearProgressBar } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
 const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
   const [currQues, setCurrQues] = useState(0);
+
+  /*
+  Set a counter for 60 seconds to show the progress bar and reset it every time the user moves to next question
+   */
   const [counter, setCounter] = useState(60);
-
   const timerRef = useRef();
-
   useEffect(() => {
     if (counter > 0) {
       timerRef.current = setTimeout(() => {
@@ -35,6 +37,7 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
             <span>{questions[currQues].category}</span>
             <span>Score: {score}</span>
           </div>
+          {/* Show the progress bar */}
           <LinearProgressBar
             className={"progress-bar"}
             barStyle="negative"
@@ -42,7 +45,6 @@ const Quiz = ({ name, questions, setScore, score, setQuestions }) => {
             max={60}
             value={counter}
           />
-
           <Question
             currQues={currQues}
             setCurrQues={setCurrQues}

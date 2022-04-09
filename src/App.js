@@ -18,7 +18,7 @@ function App() {
 
   const fetchQuestions = async (category = "", difficulty = "") => {
     const { data } = await axios.get(
-      `https://opentdb.com/api.php?amount=11&category=${category}&difficulty=${difficulty}&type=multiple`
+      `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
     );
 
     setQuestions(data.results);
@@ -44,12 +44,17 @@ function App() {
                 questions={questions}
                 setScore={setScore}
                 score={score}
-                setQuestions={updateQuestions}
+                setQuestions={setQuestions}
               />
             )}
           </Route>
           <Route exact path="/result">
-            <Result name={name} score={score} />
+            <Result name={name}
+                    score={score}
+                    setScore={setScore}
+                    setName={setName}
+                    setQuestions={updateQuestions}
+            />
           </Route>
         </Switch>
       </div>

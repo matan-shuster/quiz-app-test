@@ -6,58 +6,72 @@
   text-align: center;
 }
 
+.finalscore{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 40px 0 60px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.leaderboardTitle{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 .leaderboard {
   display : flex;
   flex-direction: column;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 20%;
-  background: #90d4ff;
+  background: #d2e8f3;
   border-radius: 10px;
+  padding: 1em 2em;
   box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 .leaderboard ol li:nth-child(1) {
-  background: #80d4ff;
+  background: #0d4e6d;
+  color: white;
+
 }
 .leaderboard ol li:nth-child(2) {
-  background: #70c9f2;
+  background: #085e84;
+  color: whitesmoke;
 }
 .leaderboard ol li:nth-child(3) {
-  background: #60c9f2;
+  background: #046fa0;
+  color: #efefef;
 }
 .leaderboard ol li:nth-child(4) {
-  background: #50c9f2;
+  background: #048ac5;
 }
 .leaderboard ol li:nth-child(5) {
-  background: #40c9f2;
+  background: #10ace7;
 }
 .leaderboard ol li:nth-child(6) {
   background: #30c9f2;
 }
 .leaderboard ol li:nth-child(7) {
-  background: #20c9f2;
+  background: #4cc9f7;
 }
 .leaderboard ol li:nth-child(8) {
-  background: #10c9f2;
+  background: #7ed8fb;
 }
 .leaderboard ol li:nth-child(9) {
-  background: #05c9f2;
+  background: #bbe8fc;
 }
 .leaderboard ol li:nth-child(10) {
-  background: #00c9f2;
+  background: #e0f3fe;
 }
 
-.leaderboard ol li:hover:not(:first-child) {
-  box-shadow:  #05a2a2 -6px 0px 7px;
-}
-ol li{
+.leaderboard ol li{
   padding: 10px;
 }
 
-ol li:hover {
+.leaderboard ol li:hover {
   transform: scale(1.1);
+  box-shadow:  #05a2a2 -6px 0px 7px;
 }
 .Buttons {
   position:absolute;

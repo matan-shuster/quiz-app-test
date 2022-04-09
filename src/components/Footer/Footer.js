@@ -1,7 +1,8 @@
+import "./Footer.css"
 const Footer = () => {
   return (
-    <div style={{ textAlign: "center", marginBottom: 10 }}>
-      This is a work of art;
+    <div className={"Footer"} >
+     Created by Matan Shuster
     </div>
   );
 };

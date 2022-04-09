@@ -1,13 +1,12 @@
 import "./Header.css";
-import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="header">
-      <Link to="/" className="title">
+      <div className="title">
         {" "}
         Quiz Hub{" "}
-      </Link>
+      </div>
       <hr className="divider" />
     </div>
   );

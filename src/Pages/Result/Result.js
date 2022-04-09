@@ -1,34 +1,48 @@
 import { Button } from "@material-ui/core";
-import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./Result.css";
-import { setScore } from "../../App";
-const Result = ({ name, score }) => {
-  const results = JSON.parse(localStorage.getItem("results") || "[]");
-  results.push({ score, name });
+import {useEffect, useState} from "react";
+const Result = ({ name, score, setScore, setName, setQuestions}) => {
 
-  localStorage.setItem("results", JSON.stringify(results));
-  const top10 = results.sort((a, b) => b.score - a.score).slice(0, 10);
-  const history = useHistory();
+  let endMusic= new Audio("end.mp3");
+  
+  /*
+  Get leaderboard from local storage.
+  Add new score to leaderboard.
+  Sort leaderboard top10 by score.
+   */
+    const [top10,setTop10] = useState([]);
   useEffect(() => {
-    if (!name) {
-      history.push("/");
-    }
-  }, [name, history]);
+      const results = JSON.parse(localStorage.getItem("results") || "[]");
+      results.push({ score, name });
+      localStorage.setItem("results", JSON.stringify(results));
+      const sorted = results.sort((a, b) => b.score - a.score);
+      setTop10(sorted.slice(0, 10));
+  }, []);
 
-  const clearStorage = () => {
-    localStorage.clear();
-  };
 
+    const clearStorage = () => {
+        localStorage.clear();
+        setTop10([]);
+    };
+
+
+    /*
+    Reset parameters and go back to home page.
+     */
+  const history = useHistory();
   const goToHome = () => {
     history.push("/");
-    window.location.reload(false);
+    setScore(0);
+    setName("");
+    setQuestions();
   };
+
   return (
     <div className="result">
-      <span className="title">Final Score : {score}</span>
-      <div className={"leaderboard"}>
-        <span className="title">Leaderboard</span>
+      <span className="finalscore">Final Score : {score}</span>
+      <span className={"leaderboard"}>
+       <span className={"leaderboardTitle"}>Leaderboard</span>
         <ol>
           {top10.map((result, index) => (
             <li key={index}>
@@ -36,12 +50,12 @@ const Result = ({ name, score }) => {
             </li>
           ))}
         </ol>
-      </div>
-      <span className="Buttons">
+      </span>
+      <div className="Buttons">
         <Button
           variant="contained"
           color="primary"
-          style={{ alignSelf: "center", marginTop: 20, marginRight: 20 }}
+          style={{ alignSelf: "center", marginTop: 20 }}
           onClick={goToHome}
         >
           Play Again
@@ -49,12 +63,12 @@ const Result = ({ name, score }) => {
         <Button
           variant="contained"
           color="primary"
-          style={{ alignSelf: "center", marginTop: 20 }}
+          style={{ alignSelf: "center", marginTop: 20, marginLeft: 20 }}
           onClick={clearStorage}
         >
           Clear Results
         </Button>
-      </span>
+      </div>
     </div>
   );
 };
