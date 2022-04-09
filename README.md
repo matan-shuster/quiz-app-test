@@ -1,18 +1,8 @@
 ### Quiz Web App
 This application uses the [React](https://reactjs.org/) library to build a quiz web app.
 
-
-###API Calls
+### API Calls
 The API calls are made using [axios] to fetch questions from the [opentdb.com](https://opentdb.com/api.php) API.
-
-
-
-
-### React Components
-The following components are used in the application:
-[UseState]
-[UseEffect]
-
 
 ### Libraries used
 [React]
